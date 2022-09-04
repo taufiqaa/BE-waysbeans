@@ -116,10 +116,6 @@ func (h *handlerCart) FindCartId(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for i, p := range cart {
-		cart[i].Product.Image = path_file_cart + p.Product.Image
-	}
-
 	w.WriteHeader(http.StatusOK)
 	response := dto.SuccessResult{Status: "Success", Data: cart}
 	json.NewEncoder(w).Encode(response)
