@@ -210,28 +210,28 @@ func (h *handlerCart) UpdateQuantity(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-// func (h *handlerCart) DeleteCart(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
+func (h *handlerCart) DeleteCart(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 
-// 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
-// 	cart, err := h.CartRepository.GetCart(id)
-// 	if err != nil {
-// 		w.WriteHeader(http.StatusBadRequest)
-// 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
-// 		json.NewEncoder(w).Encode(response)
-// 		return
-// 	}
+	cart, err := h.CartRepository.GetCart(id)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
-// 	data, err := h.CartRepository.DeleteCart(cart)
-// 	if err != nil {
-// 		w.WriteHeader(http.StatusInternalServerError)
-// 		response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
-// 		json.NewEncoder(w).Encode(response)
-// 		return
-// 	}
+	data, err := h.CartRepository.DeleteCart(cart)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
-// 	w.WriteHeader(http.StatusOK)
-// 	response := dto.SuccessResult{Status: "success", Data: data}
-// 	json.NewEncoder(w).Encode(response)
-// }
+	w.WriteHeader(http.StatusOK)
+	response := dto.SuccessResult{Status: "success", Data: data}
+	json.NewEncoder(w).Encode(response)
+}
